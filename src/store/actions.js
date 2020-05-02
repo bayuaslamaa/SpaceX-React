@@ -7,5 +7,14 @@ export const setLaunches = (data) => {
 }
 
 function fetchLaunches() {
-    
+    return axios.get('https://api.spacexdata.com/v3/launches')
+}
+
+
+export const getLaunches = () => {
+    return dispatch => {
+        fetchLaunches()
+            .then(({ data }) => dispatch(setLaunches(data)))
+            .catch(console.log)
+    }
 }
