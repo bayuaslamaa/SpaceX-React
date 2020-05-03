@@ -9,7 +9,7 @@ export default (state = initial, action) => {
     const { type, payload } = action
     switch (type) {
         case t.SET_LAUNCHES:
-            return { ...state, launches: payload }
+            return (Array.isArray(payload)) ? ({ ...state, launches: payload }) : ({ ...state, launches: state.launches.concat(payload) })
         default:
             return state
     }

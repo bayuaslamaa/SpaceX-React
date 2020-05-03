@@ -10,11 +10,22 @@ function fetchLaunches() {
     return axios.get('https://api.spacexdata.com/v3/launches')
 }
 
+function fetchLaunchByNumber(id) {
+    return axios.get(`https://api.spacexdata.com/v3/launches/${id}`)
+}
 
-export const getLaunches = () => {
+
+export const getLaunches = (id) => {
     return dispatch => {
-        fetchLaunches()
-            .then(({ data }) => dispatch(setLaunches(data)))
-            .catch(console.log)
+        if (!id) {
+            fetchLaunches()
+                .then(({ data }) => dispatch(setLaunches(data)))
+                .catch(console.log)
+        } else {
+            fetchLaunchByNumber(id)
+                .then(({ data }) => dispatch(setLaunches(data)))
+                .catch(console.log)
+        }
     }
 }
+
